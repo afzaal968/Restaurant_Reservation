@@ -8,13 +8,25 @@ import { dbConnection } from "./database/dbConnection.js";
 const app = express();
 dotenv.config({ path: "./config.env" });
 
+const allowedOrigins = [
+  "http://localhost:5173",
+  "https://restaurant-reservation-sage.vercel.app"
+];
+
 app.use(
   cors({
-    origin: [process.env.FRONTEND_URL],
-    methods: ["POST"],
+    origin: function (origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        callback(null, true);
+      } else {
+        callback(new Error("Not allowed by CORS"));
+      }
+    },
+    methods: ["GET", "POST", "PUT", "DELETE"],
     credentials: true,
   })
 );
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
