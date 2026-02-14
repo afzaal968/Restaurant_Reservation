@@ -18,25 +18,35 @@ const Reservation = () => {
 
   const handleReservation = async (e) => {
     e.preventDefault();
-  try {
-    const { data } = await axios.post(
-  `${import.meta.env.VITE_BACKEND_URL}/api/v1/reservation/send`,
-  data,
-  {
-    headers: {
-      "Content-Type": "application/json",
-    }
-  }
-);
+
+    try {
+      const response = await axios.post(
+        `${import.meta.env.VITE_BACKEND_URL}/api/v1/reservation/send`,
+        {
+          firstName,
+          lastName,
+          email,
+          phone,
+          date,
+          time
+        }
+      );
+
+      toast.success(response.data.message);
+
       setFirstName("");
       setLastName("");
-      setPhone(0);
+      setPhone("");
       setEmail("");
       setTime("");
       setDate("");
-      navigate("/success");
+
+      setTimeout(() => {
+        navigate("/success");
+      }, 1500);
+
     } catch (error) {
-      toast.error(error.response.data.message);
+      toast.error(error.response?.data?.message || "Something went wrong");
     }
   };
 
