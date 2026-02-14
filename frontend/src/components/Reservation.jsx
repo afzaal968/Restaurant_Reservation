@@ -6,6 +6,8 @@ import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
 
 const Reservation = () => {
+
+  console.log("ENV:", import.meta.env.VITE_BACKEND_URL);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
