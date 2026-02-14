@@ -16,17 +16,8 @@ const Reservation = () => {
 
   const handleReservation = async (e) => {
     e.preventDefault();
-  try {
-    const { data } = await axios.post(
-      `${import.meta.env.VITE_BACKEND_URL}/api/v1/reservation/send`,
-      { firstName, lastName, email, phone, date, time },
-      {
-        headers: {
-          "Content-Type": "application/json",
-        },
-        withCredentials: true,
-      }
-    );
+try { const { data } = await axios.post( "https://restaurant-reservation-d7hy.onrender.com/api/v1/reservation/send", 
+  { firstName, lastName, email, phone, date, time }, { headers: { "Content-Type": "application/json", }, withCredentials: true, } );
       toast.success(data.message);
       setFirstName("");
       setLastName("");
